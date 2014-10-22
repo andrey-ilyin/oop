@@ -4,53 +4,90 @@
 #include <set>
 
 void PrintUsage();
-void PrintInvalidNumberArgument(int elementIndex);
+void PrintErrorMessage(int errorCode, int argumentIndex);
+
 double StringToDouble(const char* str, bool &err);
-double Calculate(char operation, double firstArg, double secondArg);
 char StringToMathSign(const char* str, bool &err);
+
+double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArgumentIndex);
+double Calculate(char operation, double firstArg, double secondArg);
 
 const int MIN_PROGRAM_ARGUMENTS = 4;
 
+enum ErrorCode
+{
+    ERR_NONE,
+    ERR_INVALID_COUNT_OF_ARGUMENTS,
+    ERR_INVALID_NUMBER_ARGUMENT,
+    ERR_INVALID_SIGN_ARGUMENT
+};
+
 int main(int argc, char* argv[])
 {
+    int errorCode = ERR_NONE;
+    int errorArgumentIndex = 0;
+    double result = 0;
+
     if ( argc < MIN_PROGRAM_ARGUMENTS || argc % 2 != 0 )
     {   
-        printf("Invalid count of program arguments.\n" );
-        PrintUsage();
-        return 1;
+        errorCode = ERR_INVALID_COUNT_OF_ARGUMENTS;
     }
 
-    bool err = false;
+    if ( errorCode == ERR_NONE )
+    {
+        result = CalculateExpression(argc, argv, errorCode, errorArgumentIndex);
+    }
+
+    if ( errorCode != ERR_NONE )
+    {
+        PrintErrorMessage(errorCode, errorArgumentIndex);
+        PrintUsage();
+    }
+    else
+    {
+        printf("%.3f\n", result);
+    }
+
+    return 0;
+}
+
+double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArgumentIndex)
+{
+    double result = 0;
+    bool err = false; 
+    errorCode = ERR_NONE;
+
     double firstArg = (double)StringToDouble(argv[1], err);
     if ( err )
     {
-        PrintInvalidNumberArgument(1);
-        PrintUsage();
-        return 1;
+        errorCode = ERR_INVALID_NUMBER_ARGUMENT;
+        errorArgumentIndex = 1;
     }
 
-    for (int i = 2; i < (argc - 1); i = i + 2)
+    if ( !err )
     {
-        char sign = StringToMathSign(argv[i], err);
-        if ( err )
+        for (int i = 2; i < (argc - 1); i = i + 2)
         {
-            printf("Argument #%d is not a valid math sign.\n", i);
-            PrintUsage();
-            return 1;
+            char sign = StringToMathSign(argv[i], err);
+            if ( err )
+            {
+                errorCode = ERR_INVALID_SIGN_ARGUMENT;
+                errorArgumentIndex = i;
+                break;
+            }
+            double secondArg = StringToDouble(argv[i + 1], err);
+            if ( err )
+            {
+                errorCode = ERR_INVALID_NUMBER_ARGUMENT;
+                errorArgumentIndex = i;
+                break;
+            }
+            firstArg = Calculate(sign, firstArg, secondArg);
         }
-        double secondArg = (double)StringToDouble(argv[i+1], err);
-        if ( err )
-        {
-            PrintInvalidNumberArgument(i+1);
-            PrintUsage();
-            return 1;
-        }
-        firstArg = Calculate(sign, firstArg, secondArg);
     }
 
-    printf("%.3f\n", firstArg);
-
-    return 0;
+    result = firstArg;
+    return result;
 }
 
 void PrintUsage()
@@ -60,7 +97,7 @@ void PrintUsage()
     printf("\t<number expression> <sign> <number>\n");
 
     printf("Example: eval.exe 10 + 5\n");
-    printf("eval.exe 4 '*' 3 - 2\n");
+    printf("eval.exe 4 \"*\" 3 - 2\n");
 }
 
 char StringToMathSign(const char* str, bool &err)
@@ -117,7 +154,20 @@ double Calculate(char operation, double firstArg, double secondArg)
     return result;
 }
 
-void PrintInvalidNumberArgument(int elementIndex)
+void PrintErrorMessage(int errorCode, int argumentIndex)
 {
-    printf("Argument #%d is not a number.\n", elementIndex);
+    switch ( errorCode )
+    {
+        case ERR_INVALID_COUNT_OF_ARGUMENTS:
+            printf("Invalid count of program arguments.\n" );
+            break;
+        case ERR_INVALID_NUMBER_ARGUMENT:
+            printf("Argument #%d is not a number.\n", argumentIndex);
+            break;
+        case ERR_INVALID_SIGN_ARGUMENT:
+            printf("Argument #%d is not a valid math sign.\n", argumentIndex);
+            break;
+        default:
+            break;
+    }    
 }
