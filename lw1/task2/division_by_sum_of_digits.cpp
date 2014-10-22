@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <algorithm>
 
 const int DEFAULT_MIN_NUMBER = 1;
 const int DEFAULT_MAX_NUMBER = 1000;
 
 int SumDigits(int i);
 int StringToInt(const char* str, bool &err);
+
 void PrintNumbers(int maxNumber);
+void PrintUsage();
 
 int main(int argc, char* argv[])
 {
@@ -17,8 +18,19 @@ int main(int argc, char* argv[])
     {
         bool err = false;
         maxNumber = StringToInt(argv[1], err);
+        if ( err )
+        {
+            printf("Argument is not a valid number.\n");
+            PrintUsage();
+            return 1;
+        }
     }
-    maxNumber = std::max( maxNumber, DEFAULT_MIN_NUMBER );
+    if ( maxNumber < 1 )
+    {
+        printf("Please specify number greater than 1.\n");
+        PrintUsage();
+        return 1;
+    }
 
     PrintNumbers(maxNumber);
 
@@ -60,4 +72,11 @@ int StringToInt(const char* str, bool &err)
     int param = strtol(str, &pLastChar, 10);
     err = ((*str == '\0') || (*pLastChar != '\0'));
     return param;    
+}
+
+void PrintUsage()
+{
+    printf("Usage: \n");
+    printf("\tdivision_by_sum_of_digits.exe\n");
+    printf("\tdivision_by_sum_of_digits.exe <number>\n");
 }
