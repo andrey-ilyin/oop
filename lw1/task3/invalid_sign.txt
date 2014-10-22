@@ -1,0 +1,6 @@
+Argument #1 is not a number.
+Usage: eval.exe <number expression>
+	<number expression> ::= <number> | 
+	<number expression> <sign> <number>
+Example: eval.exe 10 + 5
+eval.exe 4 '*' 3 - 2
