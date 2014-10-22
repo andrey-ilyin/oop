@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
     {
         PrintErrorMessage(errorCode, errorArgumentIndex);
         PrintUsage();
+        return 1;
     }
     else
     {
