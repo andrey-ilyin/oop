@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <set>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
 
 const double MIN_NUMBER = 0.001;
 
@@ -123,8 +127,7 @@ char StringToMathSign(const char* str, bool &err)
     }
 
     char signs[] = {'+', '-', '*', '/'};
-    std::set<char> availableSigns(signs, signs + 4);
-    err = availableSigns.find(sign) == availableSigns.end();
+    err = find(begin(signs), end(signs), sign) == end(signs);
 
     return sign;
 }
