@@ -1,0 +1,2 @@
+Invalid number of arguments.
+flipbyte.exe <number>
