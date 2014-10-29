@@ -28,4 +28,13 @@ if [ "$errorLevel" -ne 0 ] || [ "$result" != "4.700" ]; then
     exit
 fi
 
+#Деление на ноль
+result=`($exe 10 // 0)`
+errorLevel=$?
+expectation=`cat invalid_operation.txt`
+if [ "$errorLevel" -ne 1 ] || [ "$result" != "$expectation" ]; then
+    echo "Failed checking of operation."
+    exit
+fi
+
 echo "Program testing succeeded!"

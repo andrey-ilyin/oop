@@ -3,6 +3,8 @@
 #include <string.h>
 #include <set>
 
+const double MIN_NUMBER = 0.001;
+
 void PrintUsage();
 void PrintErrorMessage(int errorCode, int argumentIndex);
 
@@ -10,16 +12,15 @@ double StringToDouble(const char* str, bool &err);
 char StringToMathSign(const char* str, bool &err);
 
 double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArgumentIndex);
-double Calculate(char operation, double firstArg, double secondArg);
-
-const int MIN_PROGRAM_ARGUMENTS = 4;
+double Calculate(char operation, double firstArg, double secondArg, bool &err);
 
 enum ErrorCode
 {
     ERR_NONE,
     ERR_INVALID_COUNT_OF_ARGUMENTS,
     ERR_INVALID_NUMBER_ARGUMENT,
-    ERR_INVALID_SIGN_ARGUMENT
+    ERR_INVALID_SIGN_ARGUMENT,
+    ERR_INVALID_OPERATION
 };
 
 int main(int argc, char* argv[])
@@ -28,7 +29,7 @@ int main(int argc, char* argv[])
     int errorArgumentIndex = 0;
     double result = 0;
 
-    if ( argc < MIN_PROGRAM_ARGUMENTS || argc % 2 != 0 )
+    if ( argc < 2 ||  argc % 2 != 0 )
     {   
         errorCode = ERR_INVALID_COUNT_OF_ARGUMENTS;
     }
@@ -80,10 +81,16 @@ double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArg
             if ( err )
             {
                 errorCode = ERR_INVALID_NUMBER_ARGUMENT;
+                errorArgumentIndex = i + 1;
+                break;
+            }
+            firstArg = Calculate(sign, firstArg, secondArg, err);
+            if ( err )
+            {
+                errorCode = ERR_INVALID_OPERATION;
                 errorArgumentIndex = i;
                 break;
             }
-            firstArg = Calculate(sign, firstArg, secondArg);
         }
     }
 
@@ -115,7 +122,7 @@ char StringToMathSign(const char* str, bool &err)
         sign = str[0];
     }
 
-    char signs[4] = {'+', '-', '*', '/'};
+    char signs[] = {'+', '-', '*', '/'};
     std::set<char> availableSigns(signs, signs + 4);
     err = availableSigns.find(sign) == availableSigns.end();
 
@@ -130,8 +137,9 @@ double StringToDouble(const char* str, bool &err)
     return param;
 }
 
-double Calculate(char operation, double firstArg, double secondArg)
+double Calculate(char operation, double firstArg, double secondArg, bool &err)
 {
+    err = false;
     double result = 0;
 
     switch (operation)
@@ -146,7 +154,14 @@ double Calculate(char operation, double firstArg, double secondArg)
             result = firstArg * secondArg;
             break;
         case '/':
-            result = firstArg / secondArg;
+            if ( abs(secondArg) < MIN_NUMBER )
+            {
+                err = true;
+            }
+            else
+            {
+                result = firstArg / secondArg;
+            }
             break;
         default:
             break;
@@ -167,6 +182,9 @@ void PrintErrorMessage(int errorCode, int argumentIndex)
             break;
         case ERR_INVALID_SIGN_ARGUMENT:
             printf("Argument #%d is not a valid math sign.\n", argumentIndex);
+            break;
+        case ERR_INVALID_OPERATION:
+            printf("Invalid operaion (argument #%d).\n", argumentIndex);
             break;
         default:
             break;
