@@ -1,0 +1,3 @@
+Invalid paramaters number.
+Usage:
+multmatrix <matrix file1> <matrix file2>

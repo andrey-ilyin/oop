@@ -1,0 +1,1 @@
+Invalid matrix format in file 'test/invalid_m2.txt'. Specified matrix is not 3x3
