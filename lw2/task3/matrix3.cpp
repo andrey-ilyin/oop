@@ -38,7 +38,7 @@ void readMatrix3(const string& fileName, Matrix3& result, int& errCode)
     double el = 0;
     if ( fo )
     {
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; (i < 3) && (errCode == ERR_NONE); ++i)
         {
             for (int j = 0; j < 3; ++j)
             {
@@ -51,6 +51,7 @@ void readMatrix3(const string& fileName, Matrix3& result, int& errCode)
                 else
                 {
                     errCode = ERR_INVALID_MATRIX;
+                    break;
                 }
             }
         }
