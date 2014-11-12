@@ -1,5 +1,6 @@
 #include "matrix3.h"
 #include <iostream>
+#include <stdio.h>
 
 void multMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result)
 {
