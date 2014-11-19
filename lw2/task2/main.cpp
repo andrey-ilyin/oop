@@ -1,11 +1,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 using namespace std;
 
 int StringToInt(const char* str, bool &err);
-int FlipByte(int number);
+unsigned int FlipByte(unsigned int number);
 
 void PrintUsage();
 
@@ -19,7 +20,7 @@ int main(int argc, char* argv[])
     }
 
     bool err = false;
-    int number = StringToInt(argv[1], err);
+    unsigned int number = (unsigned int) StringToInt(argv[1], err);
 
     if ( err )
     {
@@ -35,7 +36,7 @@ int main(int argc, char* argv[])
     }
 
     number = FlipByte(number);
-    cout << number;
+    cout << number << endl;
 
     return 0;
 }
@@ -48,9 +49,11 @@ int StringToInt(const char* str, bool &err)
     return param;
 }
 
-int FlipByte(int number)
+unsigned int FlipByte(unsigned int number)
 {
-    int result = 0;
+    assert(number > 0 && number < 255);
+
+    unsigned int result = 0;
 
     result = ( ( number & 128 ) >> 7 ) |
             ( ( number & 64 ) >> 5 )   |

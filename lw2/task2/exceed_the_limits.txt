@@ -1,1 +1,0 @@
-Specified number exceed the limits [0, 255].

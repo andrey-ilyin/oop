@@ -1,11 +1,11 @@
 #!/bin/sh
 
-exe=./a.exe
+exe=./flipbyte.exe
 
 #Запуск программы без параметров
 result=`($exe)`
 errorLevel=$?
-expectation=`cat invalid_count_of_arguments.txt`
+expectation=`cat tests/invalid_count_of_arguments.txt`
 if [ "$errorLevel" -ne 1 ] || [ "$result" != "$expectation" ]; then
     echo "Failed checking without parameters."
     exit
@@ -14,7 +14,7 @@ fi
 #Запуск программы с невалидным параметром
 result=`($exe abc)`
 errorLevel=$?
-expectation=`cat invalid_argument.txt`
+expectation=`cat tests/invalid_argument.txt`
 if [ "$errorLevel" -ne 1 ] || [ "$result" != "$expectation" ]; then
     echo "Failed checking with invalid argument."
     exit
@@ -23,7 +23,7 @@ fi
 #Запуск программы с параметром выходящем за допустимые пределы
 result=`($exe -10)`
 errorLevel=$?
-expectation=`cat exceed_the_limits.txt`
+expectation=`cat tests/exceed_the_limits.txt`
 if [ "$errorLevel" -ne 1 ] || [ "$result" != "$expectation" ]; then
     echo "Failed checking with parameter exceed the limits."
     exit
