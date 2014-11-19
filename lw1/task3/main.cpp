@@ -9,15 +9,6 @@ using namespace std;
 
 const double MIN_NUMBER = 0.001;
 
-void PrintUsage();
-void PrintErrorMessage(int errorCode, int argumentIndex);
-
-double StringToDouble(const char* str, bool &err);
-char StringToMathSign(const char* str, bool &err);
-
-double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArgumentIndex);
-double Calculate(char operation, double firstArg, double secondArg, bool &err);
-
 enum ErrorCode
 {
     ERR_NONE,
@@ -27,9 +18,18 @@ enum ErrorCode
     ERR_INVALID_OPERATION
 };
 
+void PrintUsage();
+void PrintErrorMessage(ErrorCode errorCode, int argumentIndex);
+
+double StringToDouble(const char* str, bool &err);
+char StringToMathSign(const char* str, bool &err);
+
+double CalculateExpression(int argc, char* argv[], ErrorCode &errorCode, int &errorArgumentIndex);
+double Calculate(char operation, double firstArg, double secondArg, bool &err);
+
 int main(int argc, char* argv[])
 {
-    int errorCode = ERR_NONE;
+    ErrorCode errorCode = ERR_NONE;
     int errorArgumentIndex = 0;
     double result = 0;
 
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-double CalculateExpression(int argc, char* argv[], int &errorCode, int &errorArgumentIndex)
+double CalculateExpression(int argc, char* argv[], ErrorCode &errorCode, int &errorArgumentIndex)
 {
     double result = 0;
     bool err = false; 
@@ -173,7 +173,7 @@ double Calculate(char operation, double firstArg, double secondArg, bool &err)
     return result;
 }
 
-void PrintErrorMessage(int errorCode, int argumentIndex)
+void PrintErrorMessage(ErrorCode errorCode, int argumentIndex)
 {
     switch ( errorCode )
     {
