@@ -1,0 +1,3 @@
+Invalid arguments count.
+Usage:
+	findtext <text file> <search text>
