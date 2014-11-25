@@ -57,6 +57,12 @@ int main(int argc, char* argv[])
         numbers.push_back(number);
     }
 
+    if (numbers.size() < 3)
+    {
+        cout << "You should enter at least three numbers." << endl;
+        return 1;
+    }
+
     assert(numbers.size() > 2);
 
     Min3Vector mins;
