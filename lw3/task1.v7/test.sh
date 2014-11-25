@@ -2,11 +2,14 @@
 
 exe=./vector.exe
 
-#Запуск программы без параметров
-result=`($exe)`
+testParams=`cat test/numbers.txt`
+expectation=`cat test/result.txt`
+echo "Run program with parametes:\n$testParams"
+result=`($exe < test/numbers.txt)`
 errorLevel=$?
-if [ "$errorLevel" -ne 0 ]; then
-    echo "Failed."
+echo "Result\n$result"
+if [ "$errorLevel" -ne 0 ] || [ "$result" != "$expectation" ]; then
+    echo "Calculations are wrong!"
     exit
 fi
 

@@ -49,7 +49,7 @@ bool CompareNumbers(double i, double j)
 
 int main(int argc, char* argv[])
 {
-    vector<int> numbers;
+    vector<double> numbers;
     double number;
 
     while (cin >> number)
