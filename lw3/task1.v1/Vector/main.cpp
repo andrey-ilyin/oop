@@ -3,6 +3,7 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include "VectorProcessor.h"
 
 using namespace std;
 
