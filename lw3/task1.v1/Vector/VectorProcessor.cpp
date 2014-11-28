@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <algorithm> //std::transform
+#include <functional> //std::plus
 
 void ProcessVector(std::vector<double> & numbers)
 {
@@ -20,6 +21,6 @@ void ProcessVector(std::vector<double> & numbers)
 			avg += numbers[i];
 		}
 		avg /= numbers.size();
-		std::transform(numbers.begin(), numbers.end(), numbers.begin(), [avg](double i){return i + avg;});
+		std::transform(numbers.begin(), numbers.end(), numbers.begin(), bind2nd(std::plus<double>(), avg));
 	}
 }
