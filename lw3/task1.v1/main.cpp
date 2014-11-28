@@ -7,9 +7,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	istream_iterator<double> start(cin);
-	istream_iterator<double> end;
-	vector<double> numbers(start, end);
+    vector<double> numbers(istream_iterator<double>(cin), (istream_iterator<double>()));
+    copy(numbers.begin(), numbers.end(), ostream_iterator<double>(cout, " "));
 
     return 0;
 }
