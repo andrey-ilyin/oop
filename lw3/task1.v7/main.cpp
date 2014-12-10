@@ -2,19 +2,14 @@
 #include <vector>
 #include <algorithm> //for_each
 #include <assert.h>
+#include <iterator>
 #include "vector_utils.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    vector<double> numbers;
-    double number;
-
-    while (cin >> number)
-    {
-        numbers.push_back(number);
-    }
+    vector<double> numbers(istream_iterator<double>(cin), (istream_iterator<double>()));
 
     if (numbers.size() < 3)
     {
