@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm> //for_each
+#include <algorithm> //sort, transform
 #include <assert.h>
 #include <iterator>
 
