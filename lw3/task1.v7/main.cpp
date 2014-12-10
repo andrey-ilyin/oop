@@ -3,7 +3,6 @@
 #include <algorithm> //for_each
 #include <assert.h>
 #include <iterator>
-#include "vector_utils.h"
 
 using namespace std;
 
@@ -16,26 +15,17 @@ int main(int argc, char* argv[])
         cout << "You should enter at least three numbers." << endl;
         return 1;
     }
-
     assert(numbers.size() >= 3);
 
-    vector<double> mins3 (3);
+    vector<double> mins3(3);
     partial_sort_copy(numbers.begin(), numbers.end(), mins3.begin(), mins3.end());
     double sumOfMins = mins3[0] + mins3[1] + mins3[2];
-    
-    VectorPlus plus;
-    plus.value = sumOfMins;
 
-    transform(numbers.begin(), numbers.end(), numbers.begin(), plus);
+    transform(numbers.begin(), numbers.end(), numbers.begin(), bind2nd(plus<double>(), sumOfMins));
 
-    sort(numbers.begin(), numbers.end(), CompareNumbers);
+    sort(numbers.begin(), numbers.end());
 
-    for(auto it = numbers.begin(); it != numbers.end(); ++it)
-    {
-        if (it != numbers.begin())
-            cout << " ";
-        cout << *it;
-    }
+    copy(numbers.begin(), numbers.end(), ostream_iterator<double>(cout, " "));
     cout << endl;
 
     return 0;
