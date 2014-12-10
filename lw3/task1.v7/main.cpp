@@ -19,11 +19,12 @@ int main(int argc, char* argv[])
 
     assert(numbers.size() >= 3);
 
-    Min3Vector mins;
-    mins = for_each(numbers.begin(), numbers.end(), mins);
-
+    vector<double> mins3 (3);
+    partial_sort_copy(numbers.begin(), numbers.end(), mins3.begin(), mins3.end());
+    double sumOfMins = mins3[0] + mins3[1] + mins3[2];
+    
     VectorPlus plus;
-    plus.value = (mins.min1 + mins.min2 + mins.min3);
+    plus.value = sumOfMins;
 
     transform(numbers.begin(), numbers.end(), numbers.begin(), plus);
 
