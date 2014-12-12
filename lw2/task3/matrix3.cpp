@@ -16,7 +16,6 @@ void MultMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result)
 
 void PrintMatrix3(const Matrix3& m)
 {
-    cout.precision(3);
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
