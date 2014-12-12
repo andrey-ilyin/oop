@@ -1,11 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 
 void PrintUsage();
-void FindText(ifstream& haystack, string& needle, vector<size_t>& foundLines);
+vector<size_t> FindText(ifstream& haystack, const string& needle);
 
 int main(int argc, char* argv[])
 {
@@ -32,8 +34,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    vector<size_t> foundLines;
-    FindText(filein, searchString, foundLines);
+    vector<size_t> foundLines = FindText(filein, searchString);
 
     if (foundLines.empty())
     {
@@ -41,10 +42,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    for (size_t i = 0; i < foundLines.size(); ++i)
-    {
-        cout << foundLines[i] << endl;
-    }
+    copy(foundLines.begin(), foundLines.end(), ostream_iterator<int>(cout, "\n"));
 
     return 0;
 }
@@ -55,8 +53,10 @@ void PrintUsage()
             "\t" << "findtext <text file> <search text>" << endl;
 }
 
-void FindText(ifstream& haystack, string& needle, vector<size_t>& foundLines)
+vector<size_t> FindText(ifstream& haystack, const string& needle)
 {
+    vector<size_t> foundLines;
+
     size_t counter = 0;
     while (!haystack.eof())
     {
@@ -68,4 +68,6 @@ void FindText(ifstream& haystack, string& needle, vector<size_t>& foundLines)
         }
         ++counter;
     }
+
+    return foundLines;
 }
