@@ -17,6 +17,6 @@ enum Matrix3ReadError
 void MultMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result);
 
 void PrintMatrix3(const Matrix3& m);
-int ReadMatrix3(const string& fileName, Matrix3& result);
+Matrix3ReadError ReadMatrix3(const string& fileName, Matrix3& result);
 
 #endif //MATRIX3_H

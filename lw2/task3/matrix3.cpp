@@ -31,9 +31,9 @@ void PrintMatrix3(const Matrix3& m)
     }
 }
 
-int ReadMatrix3(const string& fileName, Matrix3& result)
+Matrix3ReadError ReadMatrix3(const string& fileName, Matrix3& result)
 {
-    int errCode = ERR_NONE;
+    Matrix3ReadError errCode = ERR_NONE;
     FILE* file = fopen(fileName.c_str(), "r");
     double number = 0;
     if ( file )

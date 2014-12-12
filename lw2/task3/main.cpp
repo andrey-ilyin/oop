@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void PrintReadMatrixError(const int errCode, const char* fileName);
+void PrintReadMatrixError(const Matrix3ReadError errCode, const char* fileName);
 void PrintUsage();
 
 int main(int argc, char* argv[])
@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 
     Matrix3 m1, m2, result;
 
-    int errCode = ReadMatrix3(argv[1], m1);
+    Matrix3ReadError errCode = ReadMatrix3(argv[1], m1);
     if ( errCode != ERR_NONE )
     {
         PrintReadMatrixError(errCode, argv[1]);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void PrintReadMatrixError(const int errCode, const char* fileName)
+void PrintReadMatrixError(const Matrix3ReadError errCode, const char* fileName)
 {
     switch (errCode)
     {
