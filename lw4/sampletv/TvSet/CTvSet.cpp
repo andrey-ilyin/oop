@@ -2,10 +2,17 @@
 
 bool CTvSet::IsTurnedOn() const
 {
-    return false;
+    return m_turnedOn;
 }
 
 unsigned int CTvSet::GetChannel() const
 {
-    return 0;
+    return m_channel;
+}
+
+bool CTvSet::TurnOn()
+{    
+    m_turnedOn = true;
+    m_channel = 1;
+    return true;
 }
