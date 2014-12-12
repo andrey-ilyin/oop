@@ -1,6 +1,6 @@
 #!/bin/sh
 
-exe=./multmatrix
+exe=./multmatrix.exe
 
 #Запуск программы без параметров
 result=`($exe)`

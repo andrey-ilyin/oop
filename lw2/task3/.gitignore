@@ -1,4 +1,4 @@
 .idea
 CMakeLists.txt
 *.o
-multmatrix
+multmatrix.exe

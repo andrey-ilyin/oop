@@ -3,41 +3,40 @@
 
 using namespace std;
 
-void printReadMatrixError(const int errCode, const char* fileName);
-void printUsage();
+void PrintReadMatrixError(const int errCode, const char* fileName);
+void PrintUsage();
 
 int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
         cout << "Invalid paramaters number." << endl;
-        printUsage();
+        PrintUsage();
         return 1;
     }
 
     Matrix3 m1, m2, result;
 
-    int errCode = ERR_NONE;
-    readMatrix3(argv[1], m1, errCode);
+    int errCode = ReadMatrix3(argv[1], m1);
     if ( errCode != ERR_NONE )
     {
-        printReadMatrixError(errCode, argv[1]);
+        PrintReadMatrixError(errCode, argv[1]);
         return 1;
     }
-    readMatrix3(argv[2], m2, errCode);
+    errCode = ReadMatrix3(argv[2], m2);
     if ( errCode != ERR_NONE )
     {
-        printReadMatrixError(errCode, argv[2]);
+        PrintReadMatrixError(errCode, argv[2]);
         return 1;
     }
 
-    multMatrix3(m1, m2, result);
-    printMatrix3(result);
+    MultMatrix3(m1, m2, result);
+    PrintMatrix3(result);
 
     return 0;
 }
 
-void printReadMatrixError(const int errCode, const char* fileName)
+void PrintReadMatrixError(const int errCode, const char* fileName)
 {
     switch (errCode)
     {
@@ -52,7 +51,7 @@ void printReadMatrixError(const int errCode, const char* fileName)
     }
 }
 
-void printUsage()
+void PrintUsage()
 {
     cout << "Usage:" << endl <<
             "multmatrix <matrix file1> <matrix file2>" << endl;

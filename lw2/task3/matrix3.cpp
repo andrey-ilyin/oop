@@ -1,8 +1,9 @@
 #include "matrix3.h"
 #include <iostream>
 #include <stdio.h>
+#include <iomanip>
 
-void multMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result)
+void MultMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result)
 {
     for (int i = 0; i < 3; ++i)
     {
@@ -13,15 +14,14 @@ void multMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result)
     }
 }
 
-void printMatrix3(const Matrix3& m)
+void PrintMatrix3(const Matrix3& m)
 {
     cout.precision(3);
     for (int i = 0; i < 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            //TODO: think how to make this using cout
-            printf("%.3f", m[i][j]);
+            cout << setprecision(3) << fixed << m[i][j];
             if ( j != 2 )
             {
                 cout << "\t";
@@ -31,22 +31,22 @@ void printMatrix3(const Matrix3& m)
     }
 }
 
-void readMatrix3(const string& fileName, Matrix3& result, int& errCode)
+int ReadMatrix3(const string& fileName, Matrix3& result)
 {
-    errCode = ERR_NONE;
-    FILE* fo = fopen(fileName.c_str(), "r");
-    double el = 0;
-    if ( fo )
+    int errCode = ERR_NONE;
+    FILE* file = fopen(fileName.c_str(), "r");
+    double number = 0;
+    if ( file )
     {
         for (int i = 0; (i < 3) && (errCode == ERR_NONE); ++i)
         {
             for (int j = 0; j < 3; ++j)
             {
-                if ( !feof(fo))
+                if ( !feof(file))
                 {
                     //TODO: check if specified element is valid float
-                    fscanf(fo, "%lf", &el);
-                    result[i][j] = el;
+                    fscanf(file, "%lf", &number);
+                    result[i][j] = number;
                 }
                 else
                 {
@@ -55,10 +55,12 @@ void readMatrix3(const string& fileName, Matrix3& result, int& errCode)
                 }
             }
         }
-        fclose(fo);
+        fclose(file);
     }
     else
     {
         errCode = ERR_UNABLE_TO_OPEN_FILE;
     }
+
+    return errCode;
 }

@@ -14,9 +14,9 @@ enum Matrix3ReadError
     ERR_INVALID_MATRIX
 };
 
-void multMatrix3(const Matrix3&, const Matrix3&, Matrix3&);
+void MultMatrix3(const Matrix3& m1, const Matrix3& m2, Matrix3& result);
 
-void printMatrix3(const Matrix3&);
-void readMatrix3(const string&, Matrix3&, int&);
+void PrintMatrix3(const Matrix3& m);
+int ReadMatrix3(const string& fileName, Matrix3& result);
 
 #endif //MATRIX3_H
