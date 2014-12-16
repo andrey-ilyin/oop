@@ -15,6 +15,8 @@ BOOST_AUTO_TEST_SUITE(RemoveExtraSpacesTests)
 BOOST_AUTO_TEST_CASE(AllTestCases)
 {
     BOOST_CHECK(VerifyRemoveExtraSpaces("", ""));
+    BOOST_CHECK(VerifyRemoveExtraSpaces(" ", ""));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("A", "A"));
     BOOST_CHECK(VerifyRemoveExtraSpaces("TextWithoutSpaces", "TextWithoutSpaces"));
     BOOST_CHECK(VerifyRemoveExtraSpaces("Normal text with some spaces", "Normal text with some spaces"));
     BOOST_CHECK(VerifyRemoveExtraSpaces("Text with trailing spaces     ", "Text with trailing spaces"));
