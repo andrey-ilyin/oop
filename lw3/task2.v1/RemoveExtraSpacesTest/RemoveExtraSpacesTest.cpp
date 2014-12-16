@@ -43,4 +43,12 @@ BOOST_AUTO_TEST_CASE(TwoSpacesInTheMiddleAreRemoved)
     BOOST_CHECK_EQUAL(processedString, expectedString);
 }
 
+BOOST_AUTO_TEST_CASE(RemoveAllExtraBlanks)
+{
+    std::string originalString = "  Text    with   extra   blanks   ";
+    std::string expectedString = "Text with extra blanks";
+    std::string processedString = RemoveExtraSpaces(originalString);
+    BOOST_CHECK_EQUAL(processedString, expectedString);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

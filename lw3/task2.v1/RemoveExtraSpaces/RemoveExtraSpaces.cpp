@@ -12,7 +12,23 @@ std::string RemoveExtraSpaces(std::string const& arg)
         size_t firstNotSpacePosition = arg.find_first_not_of(' ');
         firstNotSpacePosition = (firstNotSpacePosition == string::npos) ? 0 : firstNotSpacePosition;
 
-        result = arg.substr(firstNotSpacePosition, lastNotSpacePosition + 1);
+        bool space = false;
+        for (size_t position = firstNotSpacePosition; position <= lastNotSpacePosition; ++position)
+        {
+             if (arg[position] == ' ')
+             {
+                 space = true;
+             }
+             else
+             {
+                 if (space)
+                 {
+                     result.push_back(' ');
+                 }
+                 result.push_back(arg[position]);
+                 space = false;
+             }
+        }
     }
 
     return result;
