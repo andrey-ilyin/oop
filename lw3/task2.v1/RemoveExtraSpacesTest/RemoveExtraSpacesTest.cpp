@@ -4,51 +4,23 @@
 #include <string>
 #include "RemoveExtraSpaces/RemoveExtraSpaces.h"
 
-BOOST_AUTO_TEST_SUITE(RemoveExtraSpacesTest)
-
-BOOST_AUTO_TEST_CASE(EmptyStringBeingProcessedIsEmptyString)
+bool VerifyRemoveExtraSpaces(std::string const& inputString, std::string const& expectedString)
 {
-    std::string emptyString = RemoveExtraSpaces("");
-    BOOST_CHECK(emptyString.empty());
+    std::string processedString = RemoveExtraSpaces(inputString);
+    return (processedString == expectedString);
 }
 
-BOOST_AUTO_TEST_CASE(StringWithoutSpacesBeingProcessedIsTheSame)
-{
-    std::string originalString = "TextWithoutSpaces";
-    std::string processedString = RemoveExtraSpaces(originalString);
-    BOOST_CHECK_EQUAL(originalString, processedString);
-}
+BOOST_AUTO_TEST_SUITE(RemoveExtraSpacesTests)
 
-BOOST_AUTO_TEST_CASE(StringWithTrailingSpacesBeingProcessedIsTrimmed)
+BOOST_AUTO_TEST_CASE(AllTestCases)
 {
-    std::string originalString = "Text with trailing spaces     ";
-    std::string expectedString = "Text with trailing spaces";
-    std::string processedString = RemoveExtraSpaces(originalString);
-    BOOST_CHECK_EQUAL(processedString, expectedString);
-}
-
-BOOST_AUTO_TEST_CASE(StringWithBeginningSpacesBeingProcessedIsTrimmed)
-{
-    std::string originalString = "    Text with beginning spaces";
-    std::string expectedString = "Text with beginning spaces";
-    std::string processedString = RemoveExtraSpaces(originalString);
-    BOOST_CHECK_EQUAL(processedString, expectedString);
-}
-
-BOOST_AUTO_TEST_CASE(TwoSpacesInTheMiddleAreRemoved)
-{
-    std::string originalString = "Text  with  two  spaces";
-    std::string expectedString = "Text with two spaces";
-    std::string processedString = RemoveExtraSpaces(originalString);
-    BOOST_CHECK_EQUAL(processedString, expectedString);
-}
-
-BOOST_AUTO_TEST_CASE(RemoveAllExtraBlanks)
-{
-    std::string originalString = "  Text    with   extra   blanks   ";
-    std::string expectedString = "Text with extra blanks";
-    std::string processedString = RemoveExtraSpaces(originalString);
-    BOOST_CHECK_EQUAL(processedString, expectedString);
+    BOOST_CHECK(VerifyRemoveExtraSpaces("", ""));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("TextWithoutSpaces", "TextWithoutSpaces"));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("Normal text with some spaces", "Normal text with some spaces"));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("Text with trailing spaces     ", "Text with trailing spaces"));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("    Text with beginning spaces", "Text with beginning spaces"));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("Text  with  two  spaces", "Text with two spaces"));
+    BOOST_CHECK(VerifyRemoveExtraSpaces("  Text    with   extra   blanks   ", "Text with extra blanks"));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
