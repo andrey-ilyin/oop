@@ -15,6 +15,7 @@ BOOST_AUTO_TEST_CASE(EmptySetFor0)
 BOOST_AUTO_TEST_CASE(SetWithOneElement)
 {
 	std::set<std::size_t> primes = GeneratePrimeNumbersSet(2);
+	BOOST_CHECK(primes.size() == 1);
 	BOOST_CHECK(primes.find(2) != primes.end());
 }
 
