@@ -14,12 +14,15 @@ std::set<std::size_t> GeneratePrimeNumbersSet(std::size_t upperBound)
 		for (std::set<std::size_t>::iterator it = primes.begin(); it != primes.end(); ++it)
 		{
 			std::size_t prime = *it;
-			for (std::size_t i = prime + 1; i <= upperBound; ++i)
+
+			std::size_t number = 2*prime;
+			while (number <= upperBound)
 			{
-				if (i % prime == 0)
+				if (number % prime == 0)
 				{
-					primes.erase(i);
+					primes.erase(number);
 				}
+				number += prime;
 			}
 		}
 	}
