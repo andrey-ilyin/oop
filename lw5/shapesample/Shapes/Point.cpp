@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <sstream>
 
 CPoint::CPoint()
 	: CPoint(0, 0)
@@ -32,4 +33,11 @@ double CPoint::GetArea() const
 double CPoint::GetPerimiter() const
 {
 	return 0;
+}
+
+std::string CPoint::ToString() const
+{
+	std::ostringstream strm;
+	strm << "point " << GetX() << " " << GetY();
+	return strm.str();
 }

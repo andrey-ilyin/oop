@@ -13,8 +13,9 @@ public:
     
     double GetArea() const override final;
     double GetPerimiter() const override final;
+    std::string ToString() const override;
 private:
 	double m_x, m_y;
 };
 
-#endif //POINT_H
+#endif //POINT_H_

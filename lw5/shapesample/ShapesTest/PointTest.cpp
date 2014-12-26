@@ -35,4 +35,9 @@ BOOST_AUTO_TEST_CASE(HasZeroPerimiter)
 	BOOST_CHECK_EQUAL(ptAsShape.GetPerimiter(), 0);
 }
 
+BOOST_AUTO_TEST_CASE(HasStringRepresentation)
+{
+	BOOST_CHECK_EQUAL(ptAsShape.ToString(), "point 13.2 30.7");
+}
+
 BOOST_AUTO_TEST_SUITE_END();
